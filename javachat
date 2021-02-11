@@ -1,0 +1,52 @@
+package mysql;
+
+
+import java.util.List;
+import static mysql.graphics.Graphics.*;
+
+public class Main extends Application {
+    Database dat = new Database;
+    String name = "Milos";
+    String pass = TopSecretData.getChatPass();
+
+public class Main {
+    public static void main(String[] args) {
+        Database dat = new Database();
+          String name = "Milos";
+        String pass = TopSecretData.getChatPass();
+        List<Message> list = dat.getMyMessages(name);
+        launch(args);
+
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        BorderPane root = loginScreen();
+        Scene scene = new Scene(root, 400,400);
+        loginButton.setOnMouseClicked(e -> {
+            dat.login(loginInput.getText(), loginPassword.getText());
+
+        });
+        registerButton.setOnMouseClicked(e -> {
+            dat.register(registerInput.getText(), pf.getText(), pf2.getText());
+            registerInput.setText("");
+            pf.setText("");
+            pf2.setText("");
+        });
+        signUp.setOnMouseClicked(e -> {
+            BorderPane register = registerScreen();
+            Scene registerScene = new Scene(register, 400, 400);
+            stage.setScene(registerScene);
+            stage.setTitle("Register");
+            stage.show();
+        });
+        signIn.setOnMouseClicked(e -> {
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.show();
+        });
+        stage.setTitle("Login");
+        stage.setScene(scene);
+        stage.show();
+    }
+}
